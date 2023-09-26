@@ -166,6 +166,7 @@ void ICACHE_RAM_ATTR RFAMP_hal::TXenable(SX12XX_Radio_Number_t radioNumber)
         tx2_enabled = true;
     }
 #endif
+    delayMicroseconds(1); // DS for RFX2401C says 800nsec for transmit/receive switching time.
 }
 
 void ICACHE_RAM_ATTR RFAMP_hal::RXenable()
