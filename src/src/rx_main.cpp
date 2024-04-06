@@ -597,7 +597,7 @@ void ICACHE_RAM_ATTR updatePhaseLock()
             hwTimer::phaseShift(Offset >> 2);
         }
 
-        DBGVLN("%d:%d:%d:%d:%d", Offset, RawOffset, OffsetDx, hwTimer::FreqOffset, uplinkLQ);
+        //DBGVLN("%d:%d:%d:%d:%d", Offset, RawOffset, OffsetDx, hwTimer::FreqOffset, uplinkLQ);
         UNUSED(OffsetDx); // complier warning if no debug
     }
 
