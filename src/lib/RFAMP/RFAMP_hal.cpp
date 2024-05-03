@@ -26,15 +26,15 @@ void RFAMP_hal::init()
 
     tx1_enable_set_bits = 0;
     tx1_enable_clr_bits = 0;
-//    tx1_enable_set_bits |= SET_BIT(GPIO_PIN_PA_ENABLE);
-//    tx1_enable_set_bits |= SET_BIT(GPIO_PIN_TX_ENABLE);
+    tx1_enable_set_bits |= SET_BIT(GPIO_PIN_PA_ENABLE);
+    tx1_enable_set_bits |= SET_BIT(GPIO_PIN_TX_ENABLE);
     tx1_enable_clr_bits |= SET_BIT(GPIO_PIN_RX_ENABLE);
     tx1_enable_clr_bits |= SET_BIT(GPIO_PIN_RX_ENABLE_2);
 
     tx2_enable_set_bits = 0;
     tx2_enable_clr_bits = 0;
-//    tx2_enable_set_bits |= SET_BIT(GPIO_PIN_PA_ENABLE);
-//    tx2_enable_set_bits |= SET_BIT(GPIO_PIN_TX_ENABLE_2);
+    tx2_enable_set_bits |= SET_BIT(GPIO_PIN_PA_ENABLE);
+    tx2_enable_set_bits |= SET_BIT(GPIO_PIN_TX_ENABLE_2);
     tx2_enable_clr_bits |= SET_BIT(GPIO_PIN_RX_ENABLE_2);
     tx2_enable_clr_bits |= SET_BIT(GPIO_PIN_RX_ENABLE);
 
