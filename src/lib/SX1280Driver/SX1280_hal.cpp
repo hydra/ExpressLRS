@@ -99,6 +99,11 @@ void SX1280Hal::init()
     {
         attachInterrupt(digitalPinToInterrupt(GPIO_PIN_DIO1_2), this->dioISR_2, RISING);
     }
+
+#if defined(PLATFORM_STM32)    
+    // small delay, to make scope capturing/triggering easier on development boards
+    delay(25);
+#endif
 }
 
 void SX1280Hal::reset(void)
