@@ -74,11 +74,14 @@ extern "C" {
 #define TIMER_SERVO             TIM7
 
 // UART Definitions
+#ifndef SERIAL_UART_INSTANCE
+#error "SERIAL_UART_INSTANCE not defined"
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA15
 #define PIN_SERIAL_TX           PA2
+#endif
 
 /* Extra HAL modules */
 //#define HAL_DAC_MODULE_ENABLED
