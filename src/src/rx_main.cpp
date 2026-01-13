@@ -1970,11 +1970,12 @@ static void debugRcvrSignalStats(uint32_t now)
     {
         for (int i = 0 ; i < (isDualRadio()?2:1) ; i++)
         {
-            DBG("%d\t%f\t%f\t%f\t%d\t%d\t",
+//            DBG("%d\t%f\t%f\t%f\t%d\t%d\t",
+            DBG("%d\t%d\t%d\t",
                 Radio.rxSignalStats[i].irq_count,
-                (Radio.rxSignalStats[i].irq_count==0) ? 0 : double(Radio.rxSignalStats[i].rssi_sum)/Radio.rxSignalStats[i].irq_count,
-                (Radio.rxSignalStats[i].irq_count==0) ? 0 : double(Radio.rxSignalStats[i].snr_sum)/Radio.rxSignalStats[i].irq_count/RADIO_SNR_SCALE,
-                float(Radio.rxSignalStats[i].snr_max)/RADIO_SNR_SCALE,
+                // (Radio.rxSignalStats[i].irq_count==0) ? 0 : double(Radio.rxSignalStats[i].rssi_sum)/Radio.rxSignalStats[i].irq_count,
+                // (Radio.rxSignalStats[i].irq_count==0) ? 0 : double(Radio.rxSignalStats[i].snr_sum)/Radio.rxSignalStats[i].irq_count/RADIO_SNR_SCALE,
+                // float(Radio.rxSignalStats[i].snr_max)/RADIO_SNR_SCALE,
                 Radio.rxSignalStats[i].telem_count,
                 Radio.rxSignalStats[i].fail_count);
 
