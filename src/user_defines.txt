@@ -90,7 +90,7 @@
 #-DESP32_S3_USB_JTAG_ENABLED
 
 # Use DEBUG_LOG_VERBOSE instead (or both) to see verbose debug logging (spammy stuff)
--DDEBUG_LOG_VERBOSE
+#-DDEBUG_LOG_VERBOSE
 
 # Print a letter for each packet received or missed (RX debugging)
 #-DDEBUG_RX_SCOREBOARD
@@ -106,7 +106,7 @@
 # The ID is generated on the TX side and overwrites CH1-CH4 and increments once for every
 # channels packet. Writes directly to Serial, does not require DEBUG_LOG.
 # Flash both TX & RX with this enbled to use it if the ID is required.
--DDEBUG_RCVR_LINKSTATS
+#-DDEBUG_RCVR_LINKSTATS
 
 # This debug option reports dual radio RSSI&SNR, which is useful for validating a TD receiver
 -DDEBUG_RCVR_SIGNAL_STATS
