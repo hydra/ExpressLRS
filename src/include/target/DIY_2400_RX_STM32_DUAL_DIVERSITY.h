@@ -14,16 +14,16 @@
 //#define GPIO_PIN_DEBUG_RX           PA3
 //#define GPIO_PIN_DEBUG_TX           PA2
 
-//#define GPIO_PIN_NSS_2                PA4
+#define GPIO_PIN_NSS                PA4
 
 #define GPIO_PIN_SCK                PA5
 #define GPIO_PIN_MISO               PA6
 #define GPIO_PIN_MOSI               PA7
 
 // EXTI0
-//#define GPIO_PIN_DIO1               PB0
+#define GPIO_PIN_DIO1               PB0
 // EXTI1
-#define GPIO_PIN_DIO1             PB1
+//#define GPIO_PIN_DIO1_2             PB1
 
 //#define GPIO_PIN_LED_WS2812         PA8
 //#define GPIO_PIN_LED_WS2812_FAST    PA_8
@@ -44,13 +44,13 @@
 
 // On the NucleoL432 this involves removing SB2 and soldering a wire to the pad that connects to the L4 MCU
 // as it is not available on a header pin or connector.
-#define GPIO_PIN_NSS              PA15
+//#define GPIO_PIN_NSS_2              PA15
 
 // Using seperate RST signals to avoid a known issue when the NRESET signals of two SX1280 are connected to each other.
 // To free a pin if needed a 1k + 100nf LC filter can be put in front of each of the SX1280's NRESET pins and then the 
 // RST net should contain the L432 + 1k + 1k
-//#define GPIO_PIN_RST_2                PB4
-#define GPIO_PIN_RST              PB5
+#define GPIO_PIN_RST                PB4
+//#define GPIO_PIN_RST_2              PB5
 
 // Use a single-pin per PA, check truth table of PA - RFX2401C Control Logic is suitable if RXEN has a pull-up.
 // NOTE: On the NucleoL432 SB16 and SB18 must be removed to use these pins!
@@ -62,9 +62,9 @@
 //#define GPIO_PIN_BUTTON             PH3
 
 // EXTI14 (NucleoL432 D8 with SB6 installed, SB5 removed, SB4 removed)
-#define GPIO_PIN_BUSY             PC14
+//#define GPIO_PIN_BUSY_2             PC14
 // EXTI15 (NucleoL432 D7 with SB8 installed, SB7 removed)
-//#define GPIO_PIN_BUSY_2               PC15
+#define GPIO_PIN_BUSY               PC15
 
 // Output Power - use default SX1280
 #define POWER_OUTPUT_FIXED          13 //MAX power for 2400 RXes that doesn't have PA is 12.5dbm
