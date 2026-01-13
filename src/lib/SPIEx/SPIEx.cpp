@@ -1,3 +1,6 @@
+// #include "targets.h"
+// #include "logging.h"
+
 #include "SPIEx.h"
 
 #if defined(PLATFORM_ESP32)
@@ -82,10 +85,34 @@ void ICACHE_RAM_ATTR SPIExClass::_transfer(uint8_t cs_mask, uint8_t *data, uint3
         }
     }
 #else
-    // only one (software-controlled) CS pin supported on STM32 devices, so set the state of the pin
-    digitalWrite(GPIO_PIN_NSS, LOW);
+    // switch (cs_mask) {
+    //     case (1 << 0) | (1 << 1): {
+    //         DBGLN("Both");
+    //         break;
+    //     }
+    //     case (1 << 0): {
+    //         DBGLN("First");
+    //         break;
+    //     }
+    //     case (1 << 1): {
+    //         DBGLN("Second");
+    //         break;
+    //     }
+    // }
+
+    if ((cs_mask & (1 << 0)) != 0) {
+        digitalWrite(GPIO_PIN_NSS, LOW);
+    }
+    if ((cs_mask & (1 << 1)) != 0) {
+        digitalWrite(GPIO_PIN_NSS_2, LOW);
+    }
     transfer(data, size);
-    digitalWrite(GPIO_PIN_NSS, HIGH);
+    if ((cs_mask & (1 << 0)) != 0) {
+        digitalWrite(GPIO_PIN_NSS, HIGH);
+    }
+    if ((cs_mask & (1 << 1)) != 0) {
+        digitalWrite(GPIO_PIN_NSS_2, HIGH);
+    }
 #endif
 }
 

@@ -102,6 +102,12 @@ void SX1280Hal::init()
     // For the exact frequency, check the system clock tree (sysclk, ahb, apb1/apb2 prescaler and appropriate peripheral clock dividers)
     SPIEx.setClockDivider(SPI_CLOCK_DIV4);
     #endif
+
+    if (GPIO_PIN_NSS_2 != UNDEF_PIN)
+    {
+        pinMode(GPIO_PIN_NSS_2, OUTPUT);
+        digitalWrite(GPIO_PIN_NSS_2, HIGH);
+    }
 #endif
 
     //attachInterrupt(digitalPinToInterrupt(GPIO_PIN_BUSY), this->busyISR, CHANGE); //not used atm
