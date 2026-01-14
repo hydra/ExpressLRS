@@ -186,6 +186,21 @@ void USARTx_IRQ_handler(USART_TypeDef * uart)
         rx_head = next + 1;
       }
     }
+    #if defined(STM32L4xx)
+      uint32_t clear_flags = 0;
+      if (SR & USART_SR_FE) {
+         clear_flags |= USART_ICR_FECF;
+      }
+      if (SR & USART_SR_NE) {
+         clear_flags |= USART_ICR_NECF;
+      }
+      if (SR & USART_SR_ORE) {
+         clear_flags |= USART_ICR_ORECF;
+      }
+      if (clear_flags) {
+        uart->ICR = clear_flags;
+      }
+    #endif
   }
 
   // If TX is in interrupt mode, and TX empty bit set
@@ -287,7 +302,7 @@ uart_status uart_receive_timeout(uint8_t *data, uint16_t length, uint16_t timeou
           }
         }
       } while(!(SR & RX_ISR_LST));
-      // Read RX register will clear also faults
+      // Read RX register will clear also faults (Does not on L4xx !!)
       rcvd = (uint8_t)LL_USART_ReceiveData8(handle);
       if (SR & USART_SR_RXNE) {
         // Store only if data is valid
