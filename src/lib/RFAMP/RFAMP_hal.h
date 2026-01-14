@@ -26,6 +26,8 @@ private:
     uint64_t tx_all_enable_clr_bits;
     uint64_t rx_enable_set_bits;
     uint64_t rx_enable_clr_bits;
+#elif defined(PLATFORM_STM32)
+    // no additional state
 #else
     bool rx_enabled;
     bool tx_enabled;

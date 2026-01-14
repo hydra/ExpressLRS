@@ -50,6 +50,8 @@ void RFAMP_hal::init()
     rx_enable_set_bits |= SET_BIT(GPIO_PIN_RX_ENABLE_2);
     rx_enable_clr_bits |= SET_BIT(GPIO_PIN_TX_ENABLE);
     rx_enable_clr_bits |= SET_BIT(GPIO_PIN_TX_ENABLE_2);
+#elif defined(PLATFORM_STM32)
+    // no additional state to initialise
 #else
     rx_enabled = false;
     tx_enabled = false;
@@ -134,6 +136,29 @@ void ICACHE_RAM_ATTR RFAMP_hal::TXenable(SX12XX_Radio_Number_t radioNumber)
         GPIO.out1_w1ts.data = tx1_enable_set_bits >> 32;
         GPIO.out1_w1tc.data = tx1_enable_clr_bits >> 32;
     }
+#elif defined(PLATFORM_STM32)
+    if (GPIO_PIN_RX_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_RX_ENABLE, LOW);
+    }
+    if (GPIO_PIN_RX_ENABLE_2 != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_RX_ENABLE_2, LOW);
+    }
+
+    if (GPIO_PIN_PA_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_PA_ENABLE, HIGH);
+    }
+    
+    if (GPIO_PIN_TX_ENABLE != UNDEF_PIN && (radioNumber == SX12XX_Radio_1 || radioNumber == SX12XX_Radio_All))
+    {
+        digitalWrite(GPIO_PIN_TX_ENABLE, HIGH);
+    }
+    if (GPIO_PIN_TX_ENABLE_2 != UNDEF_PIN && (radioNumber == SX12XX_Radio_2 || radioNumber == SX12XX_Radio_All))
+    {
+        digitalWrite(GPIO_PIN_TX_ENABLE_2, HIGH);
+    }    
 #else
     if (!tx_enabled && !rx_enabled)
     {
@@ -172,6 +197,31 @@ void ICACHE_RAM_ATTR RFAMP_hal::RXenable()
 
     GPIO.out1_w1ts.data = rx_enable_set_bits >> 32;
     GPIO.out1_w1tc.data = rx_enable_clr_bits >> 32;
+#elif defined(PLATFORM_STM32)
+    if (GPIO_PIN_TX_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_TX_ENABLE, LOW);
+    }
+    if (GPIO_PIN_TX_ENABLE_2 != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_TX_ENABLE_2, LOW);
+    }
+
+    // PAs are LNA too.
+    if (GPIO_PIN_PA_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_PA_ENABLE, HIGH);
+    }
+
+    // Listen on all available receivers.
+    if (GPIO_PIN_RX_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_RX_ENABLE, HIGH);
+    }
+    if (GPIO_PIN_RX_ENABLE_2 != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_RX_ENABLE_2, HIGH);
+    }
 #else
     if (!rx_enabled)
     {
@@ -200,6 +250,28 @@ void ICACHE_RAM_ATTR RFAMP_hal::TXRXdisable()
 #elif defined(PLATFORM_ESP32)
     GPIO.out_w1tc = txrx_disable_clr_bits;
     GPIO.out1_w1tc.data = txrx_disable_clr_bits >> 32;
+#elif defined(PLATFORM_STM32)
+    if (GPIO_PIN_RX_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_RX_ENABLE, LOW);
+    }
+    if (GPIO_PIN_RX_ENABLE_2 != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_RX_ENABLE_2, LOW);
+    }
+    if (GPIO_PIN_TX_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_TX_ENABLE, LOW);
+    }
+    if (GPIO_PIN_TX_ENABLE_2 != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_TX_ENABLE_2, LOW);
+    }
+    if (GPIO_PIN_PA_ENABLE != UNDEF_PIN)
+    {
+        digitalWrite(GPIO_PIN_PA_ENABLE, LOW);
+    }
+
 #else
     if (rx_enabled)
     {
