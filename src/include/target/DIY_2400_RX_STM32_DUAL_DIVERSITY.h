@@ -2,13 +2,14 @@
 #define DEVICE_NAME "ELRS 2400RX DD"
 #endif
 
-#define TARGET_DIY_2400_RX_STM32_DUAL_DIVERSITY
-
 // Pins ordered by physical layout of UFQFN32, do not re-order.
 
 // PA0, PA1, PA2, PA3 = flexible.
 // PA0 = ADC1 IN5, TIM2_CH1
 // PA1 = ADC1 IN6, TIM2_CH2
+#define GPIO_PIN_RX_ENABLE          PA0
+#define GPIO_PIN_RX_ENABLE_2        PA1
+
 // PA2 = ADC1 IN7, TIM2_CH3, UART2_RX
 // PA3 = ADC1 IN8, TIM2_CH4, UART2_TX
 //#define GPIO_PIN_DEBUG_RX           PA3
@@ -25,8 +26,11 @@
 // EXTI1
 #define GPIO_PIN_DIO1_2             PB1
 
+// Use PA8 for RGBLED or PA enable
+
 //#define GPIO_PIN_LED_WS2812         PA8
 //#define GPIO_PIN_LED_WS2812_FAST    PA_8
+#define GPIO_PIN_PA_ENABLE          PA8
 
 // UART1 on default pins
 #define GPIO_PIN_RCSIGNAL_TX        PA9
@@ -55,8 +59,8 @@
 // Use a single-pin per PA, check truth table of PA - RFX2401C Control Logic is suitable if RXEN has a pull-up.
 // NOTE: On the NucleoL432 SB16 and SB18 must be removed to use these pins!
 // or could use PB6 and PB7 as I2C SCL/SDA (respectively) when not using a Power Amplifiers
-//#define GPIO_PIN_TX_ENABLE          PB6
-//#define GPIO_PIN_TX_ENABLE_2        PB7
+#define GPIO_PIN_TX_ENABLE          PB6
+#define GPIO_PIN_TX_ENABLE_2        PB7
 
 // PH3 can be used for a button, but there's compilation errors currently.
 //#define GPIO_PIN_BUTTON             PH3
