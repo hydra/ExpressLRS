@@ -437,16 +437,30 @@ static uint8_t uart_valid_pin_tx(int32_t pin, uint8_t * swapped)
       if (swapped)
         *swapped = 1;
       return 1;
+#elif defined(STM32L4xx)
+    // Valid for L432, larger pin count MCUs may have more pins
+    case GPIO('A', 3):
+    case GPIO('A', 10):
+    case GPIO('A', 15):
+    case GPIO('B', 7):
+      if (swapped)
+        *swapped = 1;
+      return 1;
+
 #endif
     case GPIO('A', 2):
     case GPIO('A', 9):
+#if !defined(STM32L4xx)
     case GPIO('A', 14):
+#endif
     case GPIO('B', 3):
     case GPIO('B', 6):
+#if !defined(STM32L4xx)
     case GPIO('B', 9):
     case GPIO('B', 10):
     case GPIO('C', 4):
     case GPIO('C', 10):
+#endif
       return 1;
   }
   return 0;
@@ -464,12 +478,14 @@ static USART_TypeDef * uart_peripheral_get(int32_t pin)
       return USART1;
     case GPIO('A', 2):
     case GPIO('A', 3):
+#if !defined(STM32L4xx)
     case GPIO('A', 14):
+#endif
     case GPIO('A', 15):
     case GPIO('B', 3):
     case GPIO('B', 4):
       return USART2;
-#ifdef USART3
+#if defined(USART3) && !defined(STM32L4xx)
     case GPIO('B', 8):
     case GPIO('B', 9):
     case GPIO('B', 10):
