@@ -546,14 +546,14 @@ void uart_init(uint32_t baud, int32_t pin_rx, int32_t pin_tx,
   /* TX USART peripheral config */
   usart_hw_init(uart_ptr, baud, 0, halfduplex);
 
-#if defined(STM32F3xx)
-  /* F3 can swap Rx and Tx pins */
+#if defined(STM32F3xx) || defined(STM32L4xx)
+  /* These MCUs can swap Rx and Tx pins */
   if (swapped) {
     LL_USART_SetTXRXSwap(uart_ptr, LL_USART_TXRX_SWAPPED);
     if (uart_ptr_rx != uart_ptr)
       LL_USART_SetTXRXSwap(uart_ptr_rx, LL_USART_TXRX_SWAPPED);
   }
-  /* F3 can invert uart lines */
+  /* These MCUs can invert uart lines */
   if (inverted) {
     LL_USART_SetTXPinLevel(uart_ptr, LL_USART_TXPIN_LEVEL_INVERTED);
     LL_USART_SetRXPinLevel(uart_ptr_rx, LL_USART_RXPIN_LEVEL_INVERTED);
