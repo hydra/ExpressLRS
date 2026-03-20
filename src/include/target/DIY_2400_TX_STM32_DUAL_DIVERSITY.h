@@ -34,10 +34,16 @@
 //#define GPIO_PIN_LED_WS2812_FAST    PA_8
 #define GPIO_PIN_PA_ENABLE          PA8
 
-// UART1 on default pins (S.Port) - PA10 unused, setting both pins to the same pin enables half-duplex
+// UART1 on default pins (S.Port) - 
 #define GPIO_PIN_RCSIGNAL_TX        PA9
-#define GPIO_PIN_RCSIGNAL_RX        PA9
 
+// HALF-DUPLEX is normal for S.Port. setting both pins to the same pin enables half-duplex
+#if defined(USE_TX_FULLDUPLEX)
+#define GPIO_PIN_RCSIGNAL_RX        PA10
+#else
+// PA10 unused
+#define GPIO_PIN_RCSIGNAL_RX        PA9
+#endif
 
 
 // define these here to prevent using the defaults in the L432 variant.
