@@ -2,6 +2,9 @@
 #define DEVICE_NAME "ELRS 2400RX DD"
 #endif
 
+// This requires the inductor to be fitted to the SX1280, see datasheet.
+#define USE_HARDWARE_DCDC
+
 // Pins ordered by physical layout of UFQFN32, do not re-order.
 
 // PA0, PA1, PA2, PA3 = flexible.
