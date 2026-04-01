@@ -136,6 +136,7 @@ transitioning from FS mode and the other from Standby mode. This causes the tx d
 #if defined(USE_HARDWARE_DCDC)
     if (OPT_USE_HARDWARE_DCDC)
     {
+        DBGLN("Enabling DCDC regulator");
         hal.WriteCommand(SX1280_RADIO_SET_REGULATORMODE, SX1280_USE_DCDC, SX12XX_Radio_All);        // Enable DCDC converter instead of LDO
     }
 #endif
