@@ -36,8 +36,9 @@ void debugPrintf(const char* fmt, ...)
         case 'x':
           utoa(va_arg(vlist, uint32_t), buf, HEX);
           break;
-#if !defined(PLATFORM_STM32)
         case 'f':
+// defining DISABLE_FLOAT_LOGGING can save some flash space if you run out, especially for debug builds.
+#if !defined(DISABLE_FLOAT_LOGGING)
           {
             float val = va_arg(vlist, double);
             itoa((int32_t)val, buf, DEC);
@@ -45,8 +46,10 @@ void debugPrintf(const char* fmt, ...)
             int32_t decimals = abs((int32_t)(val * 1000)) % 1000;
             itoa(decimals, buf + strlen(buf), DEC);
           }
-          break;
+#else
+        strcat(buf, "N/A");
 #endif
+          break;
         default:
           break;
       }
