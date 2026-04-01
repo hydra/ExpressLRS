@@ -97,7 +97,7 @@ void SX1280Hal::init()
     #if defined(STM32L432xx)
     // STM32L432: APB1/APB2 = 80Mhz, 80 / 8 = 10Mhz (DIV4 results in 20Mhz, which is too fast)
     SPIEx.setClockDivider(SPI_CLOCK_DIV8);
-    #else 
+    #else
     // Older STM32 MCUs: 72 / 4 = 18 MHz
     // For the exact frequency, check the system clock tree (sysclk, ahb, apb1/apb2 prescaler and appropriate peripheral clock dividers)
     SPIEx.setClockDivider(SPI_CLOCK_DIV4);
