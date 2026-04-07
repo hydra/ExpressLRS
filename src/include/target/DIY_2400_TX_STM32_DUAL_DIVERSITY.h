@@ -84,5 +84,23 @@
 // EXTI15 (NucleoL432 D7 with SB8 installed, SB7 removed)
 #define GPIO_PIN_BUSY               PC15
 
-// Output Power - use default SX1280
-#define POWER_OUTPUT_FIXED          13 //MAX power for 2400 RXes that doesn't have PA is 12.5dbm
+// Output Power (no PA)
+//use default SX1280
+//#define POWER_OUTPUT_FIXED          13 //MAX power for 2400 RXes that doesn't have PA is 12.5dbm
+
+// Output Power (with RFX2401C PA)
+#define MinPower                PWR_10mW
+#define MaxPower                PWR_250mW
+#define DefaultPower            PWR_10mW
+// See POWERMGMT.c / PowerLevels_e.
+// one entry for each `PWR_..mW` between `MinPower` and `MaxPower`
+#define POWER_OUTPUT_VALUES { \
+    -12, /* PWR_10mW = 10mW */ \
+    -8, /* PWR_25mW = 25mW */ \
+    -5, /* PWR_50mW = 50mW */ \
+    -2, /* PWR_100mW = 100mW */ \
+    0   /* PWR_250mW = 150mW */ \
+}
+
+// Note: 
+// * there are no suitable steps for a +22dB PA (158mW) so 250mW is configured to be 158.5mW
